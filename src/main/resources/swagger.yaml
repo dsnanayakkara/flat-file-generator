@@ -1,0 +1,100 @@
+swagger: '2.0'
+info:
+  description: Flat file generator and Jasper Reporting API
+  version: '1.0'
+  title: Flat file generator and Jasper Reporting API
+  termsOfService: urn:tos
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+host: localhost:8080
+basePath: /
+tags:
+  - name: reporting-controller
+    description: API for generating reports based on request data
+  - name: flat-file-service-controller
+    description: API for generating flat file based on request data
+paths:
+  /api/flatfile/generate:
+    post:
+      tags:
+        - flat-file-service-controller
+      summary: Generate a flat file
+      description: Generates a flat file based on the provided request data
+      operationId: generateFlatFileUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: records
+          description: List of record DTOs to be included in created flat file
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FlatFileRecordDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/flatfile/report:
+    post:
+      tags:
+        - reporting-controller
+      summary: Generate a PDF report
+      description: Generates a PDF report based on the provided request data
+      operationId: generateReportUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: records
+          description: List of flat file record DTOs to be included in the report
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FlatFileRecordDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+            format: byte
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+definitions:
+  FlatFileRecordDTO:
+    type: object
+    properties:
+      amount:
+        type: number
+      date:
+        type: string
+      referenceNo:
+        type: string
+      remark:
+        type: string
+      status:
+        type: string

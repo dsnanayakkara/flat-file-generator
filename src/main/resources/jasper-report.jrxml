@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FlatFileReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1218b163-4473-42ed-8682-972ebefdf544">
+	<field name="referenceNo" class="java.lang.String"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<field name="date" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="remark" class="java.lang.String"/>
+	<title>
+		<band height="50">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="f4cf2a05-f85f-4867-ab33-f2df49f3d36a"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="30" uuid="60f69ce8-5e9b-45d8-aad0-5cdc53384a48"/>
+				<text><![CDATA[Reference No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="30" uuid="e1614824-512f-47f2-81a9-bd6597c170b4"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="30" uuid="026d58f0-c046-4b99-a169-f24dd47f81c4"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="155" height="30" uuid="32c59279-c292-451a-a47a-d7f41a9b883d"/>
+				<text><![CDATA[Remark]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="5f380c54-c9ca-42e7-9c66-5eadd041ea11"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="39d53363-7b89-42c1-b0b7-73f624f74af6"/>
+				<textFieldExpression><![CDATA[$F{referenceNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="dc277425-c7a7-45c1-a91c-7d615309642c"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="b0d6827b-37a9-4ff7-ba59-bf5b6b153cae"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="155" height="20" uuid="93cb982a-96b9-4c4c-978b-2a17fd8b588f"/>
+				<textFieldExpression><![CDATA[$F{remark}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
