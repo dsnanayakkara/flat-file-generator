@@ -27,7 +27,7 @@ public class FlatFileService {
     @Value("${flatfile.generator.fileformat}")
     private String fileFormat;
 
-    public void generateFlatFile(List<FlatFileRecordDTO> records) throws BeanIOException, FileNotFoundException {
+    public String generateFlatFile(List<FlatFileRecordDTO> records) throws BeanIOException, FileNotFoundException {
 
         StreamFactory factory = StreamFactory.newInstance();
         StreamBuilder builder = new StreamBuilder(fileFormat)
@@ -41,16 +41,19 @@ public class FlatFileService {
         final String fullPath = filePath + File.separator + fileName + fileFormat;
 
         Writer out = new OutputStreamWriter(new FileOutputStream(new File(fullPath)), StandardCharsets.UTF_8);
-            BeanWriter writer = factory.createWriter(fileFormat, out);
-            Header header = new Header();
-            writer.write(header);
-            for (FlatFileRecordDTO body : records) {
-                Body beanIoBody = new Body(body.getReferenceNo(), body.getAmount().toString());
-                writer.write(beanIoBody);
-            }
-            Trailer trailer = new Trailer();
-            writer.write(trailer);
-            writer.flush();
-            writer.close();
+        BeanWriter writer = factory.createWriter(fileFormat, out);
+        Header header = new Header();
+        writer.write(header);
+        for (FlatFileRecordDTO body : records) {
+            Body beanIoBody = new Body(body.getReferenceNo(), body.getAmount().toString());
+            writer.write(beanIoBody);
+        }
+        Trailer trailer = new Trailer();
+        writer.write(trailer);
+        writer.flush();
+        writer.close();
+
+        return fullPath;
     }
+
 }

@@ -20,7 +20,7 @@ import java.util.List;
 
 @Api(value = "ReportingController", description = "API for generating reports based on request data")
 @RestController
-@RequestMapping("/api/flatfile")
+@RequestMapping("/api/reporting")
 public class ReportingController {
 
     private final ReportingService reportService;
@@ -31,7 +31,7 @@ public class ReportingController {
     }
 
     @ApiOperation(value = "Generate a PDF report", notes = "Generates a PDF report based on the provided request data")
-    @PostMapping("/report")
+    @PostMapping("")
     public ResponseEntity<byte[]> generateReport(@ApiParam(value = "List of flat file record DTOs to be included in the report", required = true)
                                                  @RequestBody List<FlatFileRecordDTO> records) throws JRException {
         byte[] report = reportService.generateReport(records);
