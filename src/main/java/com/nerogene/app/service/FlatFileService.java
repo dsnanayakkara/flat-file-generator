@@ -4,12 +4,12 @@ import com.nerogene.app.dto.FlatFileRecordDTO;
 import com.nerogene.app.model.Body;
 import com.nerogene.app.model.Header;
 import com.nerogene.app.model.Trailer;
+import com.nerogene.app.util.FilePathUtil;
 import org.beanio.BeanIOException;
 import org.beanio.BeanWriter;
 import org.beanio.StreamFactory;
 import org.beanio.builder.FixedLengthParserBuilder;
 import org.beanio.builder.StreamBuilder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -20,17 +20,12 @@ import java.util.List;
 public class FlatFileService {
 
     private static final String INTERNAL_FILE_FORMAT = "fixedlength";
-    @Value("${flatfile.generator.filepath}")
-    private String filePath;
-    @Value("${flatfile.generator.filename}")
-    private String fileName;
-    @Value("${flatfile.generator.fileformat}")
-    private String fileFormat;
 
-    public String generateFlatFile(List<FlatFileRecordDTO> records) throws BeanIOException, FileNotFoundException {
+
+    public void generateFlatFile(List<FlatFileRecordDTO> records) throws BeanIOException, FileNotFoundException {
 
         StreamFactory factory = StreamFactory.newInstance();
-        StreamBuilder builder = new StreamBuilder(fileFormat)
+        StreamBuilder builder = new StreamBuilder(FilePathUtil.getFileFormat())
                 .format(INTERNAL_FILE_FORMAT)
                 .parser(new FixedLengthParserBuilder())
                 .addRecord(Header.class)
@@ -38,10 +33,10 @@ public class FlatFileService {
                 .addRecord(Trailer.class);
         factory.define(builder);
 
-        final String fullPath = filePath + File.separator + fileName + fileFormat;
+        final String fullPath = FilePathUtil.getFlatFilePath();
 
         Writer out = new OutputStreamWriter(new FileOutputStream(new File(fullPath)), StandardCharsets.UTF_8);
-        BeanWriter writer = factory.createWriter(fileFormat, out);
+        BeanWriter writer = factory.createWriter(FilePathUtil.getFileFormat(), out);
         Header header = new Header();
         writer.write(header);
         for (FlatFileRecordDTO body : records) {
@@ -53,7 +48,6 @@ public class FlatFileService {
         writer.flush();
         writer.close();
 
-        return fullPath;
     }
 
 }
