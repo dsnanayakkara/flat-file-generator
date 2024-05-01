@@ -1,7 +1,7 @@
 package com.nerogene.app.controller;
 
+import com.nerogene.app.config.FlatFilePropertyConfig;
 import com.nerogene.app.service.ReportingService;
-import com.nerogene.app.util.FilePathUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.sf.jasperreports.engine.JRException;
@@ -20,17 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReportingController {
 
     private final ReportingService reportService;
+    private final FlatFilePropertyConfig propertyConfig;
+
 
     @Autowired
-    public ReportingController(ReportingService reportService) {
+    public ReportingController(ReportingService reportService, FlatFilePropertyConfig config) {
         this.reportService = reportService;
+        this.propertyConfig = config;
     }
 
 
     @ApiOperation(value = "Generate a PDF report from a flat file", notes = "Generates a PDF report based on the existing flat file")
     @PostMapping("")
     public ResponseEntity<byte[]> generateReportFromFlatFile() throws JRException {
-        byte[] report = reportService.generateReportFromFlatFile(FilePathUtil.getFlatFilePath());
+        byte[] report = reportService.generateReportFromFlatFile(propertyConfig.getFullFilePath());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("filename", "flatfile-report.pdf");
