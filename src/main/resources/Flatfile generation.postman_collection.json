@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "f74f2274-b5c7-495d-a1e8-e8a564ff2c82",
+		"name": "Flatfile generation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6913330",
+		"_collection_link": "https://dushan-api-team.postman.co/workspace/My-Workspace~6e76871e-96e1-4932-8fa0-020b6493103d/collection/6913330-f74f2274-b5c7-495d-a1e8-e8a564ff2c82?action=share&source=collection_link&creator=6913330"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/flatfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"referenceNo\": \"123456789\",\r\n    \"amount\": 1500.75,\r\n    \"date\": \"2024-05-01\",\r\n    \"status\": \"Processed\",\r\n    \"remark\": \"Payment received and confirmed.\"\r\n  },\r\n  {\r\n    \"referenceNo\": \"987654321\",\r\n    \"amount\": 200.00,\r\n    \"date\": \"2024-05-02\",\r\n    \"status\": \"Pending\",\r\n    \"remark\": \"Awaiting confirmation.\"\r\n  }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/flatfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"flatfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/flatfile/report",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"referenceNo\": \"6813162459\",\r\n        \"amount\": 100.00,\r\n        \"date\": \"2024-04-01\",\r\n        \"status\": \"Completed\",\r\n        \"remark\": \"Transaction successful\"\r\n    },\r\n    {\r\n        \"referenceNo\": \"2039229524\",\r\n        \"amount\": 200.50,\r\n        \"date\": \"2024-04-02\",\r\n        \"status\": \"Pending\",\r\n        \"remark\": \"Awaiting confirmation\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/reporting",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reporting"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
